@@ -21,7 +21,7 @@ try:
     clients = cursor.fetchall()
 
     for client in clients:
-        print("\nClient ID: {}\nName: {} {}\nJoin Date and Time: {} {}".format(client[0],client[2],client[1],client[3],client[4]))
+        print("\nClient ID: {}\nFirst Name: {}\nLast Name: {}\nJoin Date {}\nJoin Time: {}".format(client[0],client[2],client[1],client[3],client[4]))
     
     print("\n\n--DISPLAYING account RECORDS --")
 
@@ -31,19 +31,8 @@ try:
     for account in accounts:
         balance = float(account[2])
         balanceString = "{:.2f}".format(balance)
-        print("\nAccount ID: {}\nType: {}\nBalance: ${}\nOpen Date and Time: {} {}\nAccount Owner: {} {}\
+        print("\nAccount ID: {}\nType: {}\nBalance: ${}\nAccount Open Date {}\nAccount Open Time: {}\nAccount Owner: {} {}\
               ".format(account[0],account[7],balanceString,account[3],account[4],account[10],account[9]))
-
-    print("\n\n-- DISPLAYING transaction RECORDS --")
-
-    cursor.execute("SELECT * FROM transaction INNER JOIN transaction_type ON \
-                   transaction.transaction_type_id=transaction_type.transaction_type_id INNER JOIN account ON \
-                   account.account_id=transaction.transaction_id INNER JOIN client ON account.client_id=client.client_id;")
-    transactions = cursor.fetchall()
-    for transaction in transactions:
-        amount = float(transaction[2])
-        amountString = "{:.2f}".format(amount)
-        print("\nTransaction ID: {}\nType: {}\nAmount: ${}\nDate and Time: {} {}\nAccount Owner: {} {}".format(transaction[0],transaction[7],amountString,transaction[3],transaction[4],transaction[16],transaction[15]))
 
     print("\n\n-- DISPLAYING transaction_types RECORDS --")
 
@@ -59,6 +48,16 @@ try:
 
     for type in types:
         print("\nAccount Type ID: {}\nType Name {}".format(type[0],type[1]))
+    
+    print("\n\n-- DISPLAYING transaction RECORDS --") #This is without any INNER JOIN since I am only displaying data from that table
+
+    cursor.execute("SELECT * FROM transaction")
+    transactions = cursor.fetchall()
+    for transaction in transactions:
+        amount = float(transaction[2])
+        amountString = "{:.2f}".format(amount)
+        print("\nTransaction ID: {}\nType: {}\nAmount: ${}\nDate: {}\nTime: {}\nAccount ID: {}".format(transaction[0],transaction[1],amountString,transaction[3],transaction[4],transaction[5]))
+
 
 except mysql.connector.Error as err:
     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
