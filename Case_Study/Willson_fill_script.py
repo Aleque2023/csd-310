@@ -3,9 +3,8 @@ import mysql.connector
 from mysql.connector import errorcode
 
 # Open data file
-filename = "Willson.json"
-with open(filename) as file:
-    data = json.load(file)
+filename = r"C:\Users\Alex\Documents\GitHub\csd-310\Case_Study\Willson.json"
+file = open(filename)
 
 config = {
     "user": "dba",
@@ -20,7 +19,7 @@ db = mysql.connector.connect(**config)
 print("\n Database user {} to connected to MySQL on host {} with database {}\n".format(config["user"], config["host"], config["database"]))
 
 # Load data to list
-#data = json.load(file)
+data = json.load(file)
 
 try:
     cursor = db.cursor()
