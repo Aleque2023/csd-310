@@ -3,10 +3,10 @@ from mysql.connector import errorcode
 import calendar
 
 config = {
-    "user": "root",
-    "password": "1qaz!QAZ1qaz!QAZ",
+    "user": "dba",
+    "password": "groupproject",
     "host": "127.0.0.1",
-    "database": "willson_financial",
+    "database": "Willson",
     "raise_on_warnings": True
 }
 
